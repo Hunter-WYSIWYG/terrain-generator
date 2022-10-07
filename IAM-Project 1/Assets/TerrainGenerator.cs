@@ -216,8 +216,16 @@ public class TerrainGenerator : MonoBehaviour
 
                 float AddNoiseLayers(float height, float noiseLayerHeightVariety, float noiseLayerDensity)
                 {
-                    height += noiseLayerHeightVariety * Mathf.PerlinNoise(x * noiseLayerDensity + 5.3f, z * noiseLayerDensity + 9.1f);
-                    height += noiseLayerHeightVariety / 2 * Mathf.PerlinNoise(x * noiseLayerDensity*2 + 17.8f, z * noiseLayerDensity*2 + 23.5f);
+                    height += noiseLayerHeightVariety *
+                        Mathf.PerlinNoise(
+                            x * noiseLayerDensity + noiseOffsetX + 5.3f,
+                            z * noiseLayerDensity + noiseOffsetZ + 9.1f
+                        );
+                    height += noiseLayerHeightVariety / 2 *
+                        Mathf.PerlinNoise(
+                            x * noiseLayerDensity*2 + noiseOffsetX + 17.8f,
+                            z * noiseLayerDensity*2 + noiseOffsetZ + 23.5f
+                        );
                     height /= (1 + noiseLayerHeightVariety + noiseLayerHeightVariety/2);
                     return height;
                 }
@@ -247,13 +255,13 @@ public class TerrainGenerator : MonoBehaviour
     }
 
     void SetPredefinedParameters() {
-        if (generateMountains && currentLandscapeID!=mountainsID) {
+        if (generateMountains) {
             currentLandscapeID = mountainsID;
             setFalseExcept(mountainsID);
             SetMountainsSettings();
             generateMountains = false;
         }
-        if (generateIslands && currentLandscapeID!=islandsID) {
+        if (generateIslands) {
             currentLandscapeID = islandsID;
             setFalseExcept(islandsID);
             SetIslandsSettings();
