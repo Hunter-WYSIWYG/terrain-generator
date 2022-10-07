@@ -25,6 +25,7 @@ public class TerrainGenerator : MonoBehaviour
     public float noisePower = 1f;
 
     //frequency of mountains and valleys
+    [Range(0,0.5f)]
     public float heightDensity = 0.05f;
 
     //height percentage of the generated terrain in which the water plane is set
@@ -42,9 +43,11 @@ public class TerrainGenerator : MonoBehaviour
 
     [Header("Noise Layer Settings")]
     //terrain roughness height
+    [Range(0,1)]
     public float lowerNoiseLayerHeightVariety = 0.2f;
 
     //terrain roughness density
+    [Range(0,1)]
     public float lowerNoiseLayerDensity = 0.2f;
 
     //define border where upper noise layer starts beeing applied; [0,1]
@@ -53,9 +56,11 @@ public class TerrainGenerator : MonoBehaviour
     public float upperHeightPercent = 0f;
 
     //terrain roughness height for upper height area
+    [Range(0,1)]
     public float upperNoiseLayerHeightVariety = 0.2f;
 
     //terrain roughness density for upper height area
+    [Range(0,1)]
     public float upperNoiseLayerDensity = 0.2f;
 
     [Header("Color Settings")]
@@ -209,12 +214,12 @@ public class TerrainGenerator : MonoBehaviour
 
                 i++;
 
-                float AddNoiseLayers(float vHeight, float heightVariety, float density)
+                float AddNoiseLayers(float height, float noiseLayerHeightVariety, float noiseLayerDensity)
                 {
-                    vHeight += heightVariety * Mathf.PerlinNoise(x * density + 5.3f, z * density + 9.1f);
-                    vHeight += heightVariety / 2 * Mathf.PerlinNoise(x * density*2 + 17.8f, z * density*2 + 23.5f);
-                    vHeight /= (1 + lowerNoiseLayerHeightVariety + lowerNoiseLayerHeightVariety/2);
-                    return vHeight;
+                    height += noiseLayerHeightVariety * Mathf.PerlinNoise(x * noiseLayerDensity + 5.3f, z * noiseLayerDensity + 9.1f);
+                    height += noiseLayerHeightVariety / 2 * Mathf.PerlinNoise(x * noiseLayerDensity*2 + 17.8f, z * noiseLayerDensity*2 + 23.5f);
+                    height /= (1 + noiseLayerHeightVariety + noiseLayerHeightVariety/2);
+                    return height;
                 }
             }
         }
