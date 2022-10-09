@@ -8,7 +8,7 @@ public class WaterGenerator : MonoBehaviour
     public TerrainGenerator TerrainGenerator;
     private Color waterPlaneColor;
     private float relativeWaterHeight, minTerrainHeight, maxTerrainHeight;
-    private int xSize, zSize;
+    private int meshLength, meshWidth;
     private float waterMinHeight = 0;
     private float waterMaxHeight = 0;
 
@@ -28,8 +28,8 @@ public class WaterGenerator : MonoBehaviour
     void UpdateTerrainGeneratorParameters()
     {
         relativeWaterHeight = TerrainGenerator.relativeWaterHeight;
-        xSize = TerrainGenerator.terrainLenght;
-        zSize = TerrainGenerator.terrainWidth;
+        meshLength = TerrainGenerator.terrainLenght;
+        meshWidth = TerrainGenerator.terrainWidth;
         minTerrainHeight = TerrainGenerator.getMinTerrainheight();
         maxTerrainHeight = TerrainGenerator.getMaxTerrainheight();
         waterPlaneColor = TerrainGenerator.waterPlaneColor;
@@ -48,9 +48,9 @@ public class WaterGenerator : MonoBehaviour
         if (relativeWaterHeight != 0) {
             float absoluteWaterHeight = Mathf.Lerp(waterMinHeight, waterMaxHeight, relativeWaterHeight);
             waterVertices[0] = new Vector3(1, absoluteWaterHeight, 1);
-            waterVertices[1] = new Vector3(xSize+1, absoluteWaterHeight, 1);
-            waterVertices[2] = new Vector3(1, absoluteWaterHeight, zSize+1);
-            waterVertices[3] = new Vector3(xSize+1, absoluteWaterHeight ,zSize+1);
+            waterVertices[1] = new Vector3(meshLength+1, absoluteWaterHeight, 1);
+            waterVertices[2] = new Vector3(1, absoluteWaterHeight, meshWidth+1);
+            waterVertices[3] = new Vector3(meshLength+1, absoluteWaterHeight ,meshWidth+1);
 
             int[] waterTriangles = new int[6];
             waterTriangles[0] = 2;
