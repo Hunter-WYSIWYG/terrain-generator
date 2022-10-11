@@ -18,10 +18,10 @@ public class TerrainGenerator : MonoBehaviour
     public float terrainMoveSpeed = 0.4f;
 
     [Header("Height Settings")]
-    //terrain height linear
+    //terrain height differences
     public float heightVariety = 10f;
 
-    //terrain height exponential
+    //terrain steepness
     public float noisePower = 1f;
 
     //frequency of mountains and valleys
